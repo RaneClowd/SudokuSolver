@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SSTileButton.h"
 
 @interface SSValuePicker : UIView
+
+@property (nonatomic, weak) SSTileButton *tile;
 
 @end

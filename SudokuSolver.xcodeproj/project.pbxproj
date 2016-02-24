@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9153179D1C7DF59700F10917 /* SSTileGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9153179C1C7DF59700F10917 /* SSTileGroup.m */; };
+		9153179F1C7DF76500F10917 /* SSTileButtonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9153179E1C7DF76500F10917 /* SSTileButtonTests.m */; };
+		915317A11C7DFBAD00F10917 /* SSTileGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 915317A01C7DFBAD00F10917 /* SSTileGroupTests.m */; };
 		917CC3E11C7CA9CD00871D52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 917CC3E01C7CA9CD00871D52 /* main.m */; };
 		917CC3E41C7CA9CD00871D52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 917CC3E31C7CA9CD00871D52 /* AppDelegate.m */; };
 		917CC3E71C7CA9CD00871D52 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 917CC3E61C7CA9CD00871D52 /* ViewController.m */; };
 		917CC3EA1C7CA9CE00871D52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 917CC3E81C7CA9CE00871D52 /* Main.storyboard */; };
 		917CC3EC1C7CA9CE00871D52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 917CC3EB1C7CA9CE00871D52 /* Assets.xcassets */; };
 		917CC3EF1C7CA9CE00871D52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 917CC3ED1C7CA9CE00871D52 /* LaunchScreen.storyboard */; };
-		917CC3FA1C7CA9D300871D52 /* SudokuSolverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 917CC3F91C7CA9D300871D52 /* SudokuSolverTests.m */; };
 		917CC40A1C7CAAA100871D52 /* SSTileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 917CC4091C7CAAA100871D52 /* SSTileButton.m */; };
 		917CC4101C7CDA7A00871D52 /* SSValuePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 917CC40F1C7CDA7A00871D52 /* SSValuePicker.m */; };
 /* End PBXBuildFile section */
@@ -29,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9153179B1C7DF59700F10917 /* SSTileGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSTileGroup.h; path = BoardComponents/SSTileGroup.h; sourceTree = "<group>"; };
+		9153179C1C7DF59700F10917 /* SSTileGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSTileGroup.m; path = BoardComponents/SSTileGroup.m; sourceTree = "<group>"; };
+		9153179E1C7DF76500F10917 /* SSTileButtonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTileButtonTests.m; sourceTree = "<group>"; };
+		915317A01C7DFBAD00F10917 /* SSTileGroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTileGroupTests.m; sourceTree = "<group>"; };
 		917CC3DC1C7CA9CD00871D52 /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		917CC3E01C7CA9CD00871D52 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		917CC3E21C7CA9CD00871D52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -40,7 +46,6 @@
 		917CC3EE1C7CA9CE00871D52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		917CC3F01C7CA9CE00871D52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		917CC3F51C7CA9D300871D52 /* SudokuSolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuSolverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		917CC3F91C7CA9D300871D52 /* SudokuSolverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SudokuSolverTests.m; sourceTree = "<group>"; };
 		917CC3FB1C7CA9D300871D52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		917CC4081C7CAAA100871D52 /* SSTileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTileButton.h; sourceTree = "<group>"; };
 		917CC4091C7CAAA100871D52 /* SSTileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTileButton.m; sourceTree = "<group>"; };
@@ -112,8 +117,9 @@
 		917CC3F81C7CA9D300871D52 /* SudokuSolverTests */ = {
 			isa = PBXGroup;
 			children = (
-				917CC3F91C7CA9D300871D52 /* SudokuSolverTests.m */,
 				917CC3FB1C7CA9D300871D52 /* Info.plist */,
+				9153179E1C7DF76500F10917 /* SSTileButtonTests.m */,
+				915317A01C7DFBAD00F10917 /* SSTileGroupTests.m */,
 			);
 			path = SudokuSolverTests;
 			sourceTree = "<group>";
@@ -125,6 +131,8 @@
 				917CC4091C7CAAA100871D52 /* SSTileButton.m */,
 				917CC40E1C7CDA7A00871D52 /* SSValuePicker.h */,
 				917CC40F1C7CDA7A00871D52 /* SSValuePicker.m */,
+				9153179B1C7DF59700F10917 /* SSTileGroup.h */,
+				9153179C1C7DF59700F10917 /* SSTileGroup.m */,
 			);
 			name = BoardComponents;
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				917CC3E71C7CA9CD00871D52 /* ViewController.m in Sources */,
+				9153179D1C7DF59700F10917 /* SSTileGroup.m in Sources */,
 				917CC3E41C7CA9CD00871D52 /* AppDelegate.m in Sources */,
 				917CC4101C7CDA7A00871D52 /* SSValuePicker.m in Sources */,
 				917CC40A1C7CAAA100871D52 /* SSTileButton.m in Sources */,
@@ -241,7 +250,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				917CC3FA1C7CA9D300871D52 /* SudokuSolverTests.m in Sources */,
+				9153179F1C7DF76500F10917 /* SSTileButtonTests.m in Sources */,
+				915317A11C7DFBAD00F10917 /* SSTileGroupTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +432,7 @@
 				917CC4001C7CA9D300871D52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		917CC4011C7CA9D300871D52 /* Build configuration list for PBXNativeTarget "SudokuSolverTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +441,7 @@
 				917CC4031C7CA9D300871D52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

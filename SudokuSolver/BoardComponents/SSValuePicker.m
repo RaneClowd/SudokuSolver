@@ -27,7 +27,7 @@ const int kMaxButtonValue = 9;
 }
 
 - (void)setSize {
-    int viewSideSize = (kNumButtonsPerSide * kButtonWidth) + ((kNumButtonsPerSide-1) * kButtonSpacing);
+    int viewSideSize = (kNumButtonsPerSide * kButtonWidth) + ((kNumButtonsPerSide+1) * kButtonSpacing);
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self
                                                      attribute:NSLayoutAttributeHeight
@@ -91,7 +91,7 @@ const int kMaxButtonValue = 9;
                                                         toItem:button
                                                      attribute:NSLayoutAttributeTop
                                                     multiplier:1
-                                                      constant:kButtonSpacing]];
+                                                      constant:-kButtonSpacing]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:otherButton
                                                      attribute:NSLayoutAttributeCenterX
@@ -103,10 +103,10 @@ const int kMaxButtonValue = 9;
 }
 
 - (void)setButton:(UIButton *)button toTheRightOf:(UIButton *)otherButton {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:otherButton
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:button
                                                      attribute:NSLayoutAttributeLeading
                                                      relatedBy:NSLayoutRelationEqual
-                                                        toItem:button
+                                                        toItem:otherButton
                                                      attribute:NSLayoutAttributeTrailing
                                                     multiplier:1
                                                       constant:kButtonSpacing]];
@@ -122,6 +122,9 @@ const int kMaxButtonValue = 9;
 
 - (UIButton *)createNewButtonWithValue:(int)value {
     UIButton *newButton = [UIButton new];
+    [newButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [newButton setBackgroundColor:[UIColor whiteColor]];
+    [newButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     
     [newButton addConstraint:[NSLayoutConstraint constraintWithItem:newButton
                                                           attribute:NSLayoutAttributeWidth
@@ -140,7 +143,14 @@ const int kMaxButtonValue = 9;
     [self addSubview:newButton];
     [newButton setTitle:[[NSNumber numberWithInt:value] stringValue] forState:UIControlStateNormal];
     
+    [newButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
     return newButton;
+}
+
+- (void)buttonTapped:(UIButton *)button {
+    [self.tile setValue:[button.titleLabel.text intValue] userSet:YES];
+    [self removeFromSuperview];
 }
 
 @end

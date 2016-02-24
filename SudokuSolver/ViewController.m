@@ -7,9 +7,13 @@
 //
 
 #import "ViewController.h"
-#import "SSTileButton.h"
 
-@interface ViewController () <SSTileDelegate>
+#import "SSTileButton.h"
+#import "SSTileGroup.h"
+
+#import "SSValuePicker.h"
+
+@interface ViewController ()
 
 @property (strong, nonatomic) IBOutletCollection(SSTileButton) NSArray *centerGroupCollection;
 @property (strong, nonatomic) IBOutletCollection(SSTileButton) NSArray *leftGroupCollection;
@@ -41,19 +45,20 @@
 @property (strong, nonatomic) IBOutletCollection(SSTileButton) NSArray *columnEight;
 @property (strong, nonatomic) IBOutletCollection(SSTileButton) NSArray *columnNine;
 
+@property (strong, nonatomic) NSMutableArray *tileGroups;
+
 @end
 
 @implementation ViewController
 
 #pragma mark - Setup
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self configureTiles];
     [self linkTileCollections];
 }
-
-#pragma mark Tile Linking
 
 - (void)configureTiles {
     for (SSTileButton *tile in self.rowOne) {
@@ -86,8 +91,18 @@
 }
 
 - (void)configureTile:(SSTileButton *)tile {
-    [tile setDelegate:self];
-    [tile setValue:0];
+    [tile setValue:0 userSet:YES];
+    [tile addTarget:self action:@selector(tileTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [tile setBackgroundColor:[UIColor lightGrayColor]];
+}
+
+#pragma mark - Tile Linking
+
+- (NSMutableArray *)tileGroups {
+    if (_tileGroups == nil) {
+        _tileGroups = [NSMutableArray new];
+    }
+    return _tileGroups;
 }
 
 - (void)linkTileCollections {
@@ -123,21 +138,76 @@
 }
 
 - (void)linkTilesInCollection:(NSArray *)tileCollection {
+    SSTileGroup *newTileGroup = [SSTileGroup new];
+    [[self tileGroups] addObject:newTileGroup];
+    
     for (SSTileButton *tile in tileCollection) {
-        for (SSTileButton *tileToLink in tileCollection) {
-            if (tile != tileToLink) { // Don't link tiles to themselves
-                [[tile neighborTiles] addObject:tileToLink];
-            }
-        }
+        [newTileGroup addTile:tile];
     }
 }
 
-#pragma mark Solving
-
-- (void)tileFoundValue:(SSTileButton *)tileButton {
-    for (SSTileButton *linkedTile in tileButton.neighborTiles) {
-        [linkedTile eliminatePotentialValue:tileButton.value];
-    }
+- (void)tileTapped:(SSTileButton *)tile {
+    SSValuePicker *valuePicker = [SSValuePicker new];
+    [valuePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
+    valuePicker.tile = tile;
+    
+    [self.view addSubview:valuePicker];
+    
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:valuePicker
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:tile
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                        multiplier:1
+                                                                          constant:0];
+    centerXConstraint.priority = UILayoutPriorityDefaultLow;
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:valuePicker
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:tile
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                        multiplier:1
+                                                                          constant:0];
+    centerYConstraint.priority = UILayoutPriorityDefaultLow;
+    [self.view addConstraint:centerXConstraint];
+    [self.view addConstraint:centerYConstraint];
+    
+    NSLayoutConstraint *topBorderConstraint = [NSLayoutConstraint constraintWithItem:valuePicker
+                                                                           attribute:NSLayoutAttributeTop
+                                                                           relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                              toItem:self.view
+                                                                           attribute:NSLayoutAttributeTop
+                                                                          multiplier:1
+                                                                            constant:0];
+    topBorderConstraint.priority = UILayoutPriorityDefaultHigh;
+    NSLayoutConstraint *bottomBorderConstraint = [NSLayoutConstraint constraintWithItem:valuePicker
+                                                                              attribute:NSLayoutAttributeBottom
+                                                                              relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                 toItem:self.view
+                                                                              attribute:NSLayoutAttributeBottom
+                                                                             multiplier:1
+                                                                               constant:0];
+    bottomBorderConstraint.priority = UILayoutPriorityDefaultHigh;
+    NSLayoutConstraint *rightBorderConstraint = [NSLayoutConstraint constraintWithItem:valuePicker
+                                                                             attribute:NSLayoutAttributeTrailing
+                                                                             relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                toItem:self.view
+                                                                             attribute:NSLayoutAttributeTrailing
+                                                                            multiplier:1
+                                                                              constant:0];
+    rightBorderConstraint.priority = UILayoutPriorityDefaultHigh;
+    NSLayoutConstraint *leftBorderConstraint = [NSLayoutConstraint constraintWithItem:valuePicker
+                                                                            attribute:NSLayoutAttributeLeading
+                                                                            relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                               toItem:self.view
+                                                                            attribute:NSLayoutAttributeLeading
+                                                                           multiplier:1
+                                                                             constant:0];
+    leftBorderConstraint.priority = UILayoutPriorityDefaultHigh;
+    [self.view addConstraint:topBorderConstraint];
+    [self.view addConstraint:bottomBorderConstraint];
+    [self.view addConstraint:leftBorderConstraint];
+    [self.view addConstraint:rightBorderConstraint];
 }
 
 @end

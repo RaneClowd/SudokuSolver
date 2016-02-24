@@ -8,22 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class SSTileButton;
-@protocol SSTileDelegate <NSObject>
-
-- (void)tileFoundValue:(SSTileButton *)tileButton;
-
-@end
-
-
+@class SSTileGroup;
 @interface SSTileButton : UIButton
 
-@property (nonatomic, weak) id<SSTileDelegate> delegate;
+- (void)setAsMemberOfGroup:(SSTileGroup *)tileGroup;
 
-@property (nonatomic, strong) NSMutableArray <SSTileButton *> *neighborTiles;
+@property (nonatomic, readonly) int value;
+- (void)setValue:(int)value userSet:(BOOL)userSet;
 
-@property (nonatomic) int value;
 - (void)eliminatePotentialValue:(int)value;
+
+- (NSMutableArray *)potentialValues;
 
 @end
 

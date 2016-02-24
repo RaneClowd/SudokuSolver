@@ -7,22 +7,16 @@
 //
 
 #import "SSTileButton.h"
+#import "SSTileGroup.h"
 
 @interface SSTileButton ()
 
 @property (nonatomic, strong) NSMutableArray *potentialValues;
+@property (nonatomic, strong) NSPointerArray *tileGroups;
 
 @end
 
 @implementation SSTileButton
-
-- (NSMutableArray<SSTileButton *> *)neighborTiles {
-    if (_neighborTiles == nil) {
-        _neighborTiles = [NSMutableArray new];
-    }
-    
-    return _neighborTiles;
-}
 
 - (NSMutableArray *)potentialValues {
     if (_potentialValues == nil) {
@@ -31,9 +25,39 @@
     return _potentialValues;
 }
 
+- (NSPointerArray *)tileGroups {
+    if (_tileGroups == nil) {
+        _tileGroups = [NSPointerArray weakObjectsPointerArray];
+    }
+    return _tileGroups;
+}
+
+- (void)setAsMemberOfGroup:(SSTileGroup *)tileGroup {
+    [[self tileGroups] addPointer:(__bridge void * _Nullable)(tileGroup)];
+}
+
+- (void)setValue:(int)value userSet:(BOOL)userSet {
+    if (!userSet) {
+        for (SSTileGroup *tileGroup in [self tileGroups]) {
+            [tileGroup tileFoundValue:self];
+        }
+    }
+    
+    self.value = value;
+}
+
 - (void)setValue:(int)value {
     _value = value;
-    [self.delegate tileFoundValue:self];
+    
+    NSString *valueText;
+    if (value == 0) {
+        valueText = @"-";
+    } else {
+        valueText = [NSString stringWithFormat:@"%d", value];
+        [[self potentialValues] removeAllObjects];
+    }
+    [self setTitle:valueText forState:UIControlStateNormal];
+    
 }
 
 - (void)eliminatePotentialValue:(int)value {
@@ -43,8 +67,16 @@
         [potentialValues removeObject:valueToEliminate];
         
         if ([potentialValues count] == 1) {
-            self.value = value;
+            self.value = [[potentialValues firstObject] integerValue];
+        } else {
+            [self searchForUniqueValuesInGroups];
         }
+    }
+}
+
+- (void)searchForUniqueValuesInGroups {
+    for (SSTileGroup *tileGroup in [self tileGroups]) {
+        [tileGroup checkForUniquePotentials];
     }
 }
 
